@@ -18,4 +18,16 @@ select name from Candidate where id in
    order by count(*) desc
 )
 
----
+---01/31/2024---
+
+with temp as(
+    select *,
+    row_number() over(partition by company order by salary) as rank_no,
+    count(*) over(partition by company) as count_no
+    from Employee
+)
+
+select id,company,salary from temp
+where rank_no = (count_no/2) + 1
+or (count_no%2 = 0 and rank_no = count_no/2)
+
