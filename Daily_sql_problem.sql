@@ -65,3 +65,6 @@ select round(
 -- when count(accepter_id)!=0 and count(sender_id)!=0 then round(count(accepter_id)*1.0/count(sender_id),2)
 -- else 0.00
 -- end as accept_rate from temp
+
+
+
