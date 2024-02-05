@@ -66,5 +66,15 @@ select round(
 -- else 0.00
 -- end as accept_rate from temp
 
+---02/03---
+select followee as follower,
+count(*) as num from Follow
+group by followee
+having followee in (select follower from Follow)
+order by followed
 
-
+---02/04---
+select product_id,
+sum(quantity) as total_quantity
+from Sales
+group by product_id
