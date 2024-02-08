@@ -78,3 +78,22 @@ select product_id,
 sum(quantity) as total_quantity
 from Sales
 group by product_id
+
+---02/05---
+with temp as(
+    select seller_id,
+    sum(price) as total_price from Sales
+    group by seller_id
+)
+
+select seller_id
+from temp where
+total_price = (select Max(total_price) from temp)
+
+---02/06---
+select distinct buyer_id from (
+    select buyer_id from Sales where
+    product_id in (select product_id from Product where product_name = 'S8')
+)t where buyer_id not in (select buyer_id from Sales where product_id in(
+    select product_id from Product where product_name = 'iPhone'
+))
