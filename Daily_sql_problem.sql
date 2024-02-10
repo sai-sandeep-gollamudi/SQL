@@ -97,3 +97,41 @@ select distinct buyer_id from (
 )t where buyer_id not in (select buyer_id from Sales where product_id in(
     select product_id from Product where product_name = 'iPhone'
 ))
+
+---02/07---
+select t.project_id 
+from(
+    select project_id, count(*) as count_no,
+    rank() over(order by count(*) desc) as rank_no
+    from Project
+    group by project_id
+) t
+where rank_no=1;
+
+---02/08---
+with temp as (
+    select book_id,sum(quantity) as total_quantity
+    from Orders
+    where dispatch_date >= '2018-06-23'
+    group by book_id
+)
+
+select b.book_id,b.name from Books b left join
+temp t on
+b.book_id = t.book_id
+where isnull(t.total_quantity,0) < 10
+and b.available_from < '2019-05-23';
+
+---02/09---
+with temp as (
+    select user_id, min(activity_date) as first_login
+    from Traffic
+    where activity='login'
+    group by user_id
+)
+
+select first_login as login_date, 
+count(user_id) as user_count
+from temp
+group by first_login
+having first_login >= '2019-04-01'
