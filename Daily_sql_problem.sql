@@ -135,3 +135,11 @@ count(user_id) as user_count
 from temp
 group by first_login
 having first_login >= '2019-04-01'
+
+---02/10---
+select extra as report_reason,
+count(distinct post_id) as report_count
+from Actions
+where action_date='2019-07-04' and
+action='report'
+group by extra;
