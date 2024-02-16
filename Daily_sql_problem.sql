@@ -157,4 +157,22 @@ from Users u left join Orders o on
 u.user_id = o.buyer_id
 group by u.user_id, u.join_date;
 
+---02/12---
+with temp as (
+    select event_type,
+    (sum(occurrences)/count(*)) as avg_count
+    from Events
+    group by event_type
+)
+
+select business_id from (
+    select e.business_id,e.event_type,
+    e.occurrences, t.event_type as event_t,
+    t.avg_count from Events e
+    inner join temp t on
+    t.event_type = e.event_type
+    where e.occurrences > t.avg_count   
+) p
+group by business_id
+having count(*) > 1;
 
