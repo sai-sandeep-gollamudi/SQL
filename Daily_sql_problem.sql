@@ -176,3 +176,21 @@ select business_id from (
 group by business_id
 having count(*) > 1;
 
+with temp as (
+    select country_id,
+    (sum(weather_state)*1.0)/count(*) as average
+    from Weather
+    where year(day) = '2019' and
+    month(day) = '11'
+    group by country_id
+)
+
+select c.country_name,
+case
+ when t.average <= 15 then 'Cold'
+ when t.average >= 25 then 'Hot'
+ else 'Warm'
+end as weather_type
+from Countries c inner join
+temp t on
+t.country_id = c.country_id;
