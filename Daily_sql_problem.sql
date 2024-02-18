@@ -176,6 +176,7 @@ select business_id from (
 group by business_id
 having count(*) > 1;
 
+---02/13---
 with temp as (
     select country_id,
     (sum(weather_state)*1.0)/count(*) as average
@@ -194,3 +195,11 @@ end as weather_type
 from Countries c inner join
 temp t on
 t.country_id = c.country_id;
+
+---02/14---
+select trim(lower(product_name)) as product_name,
+left(sale_date,7) as sale_date,
+count(sale_id) as total
+from Sales 
+group by trim(lower(product_name)), left(sale_date,7)
+order by product_name,sale_Date
