@@ -203,3 +203,15 @@ count(sale_id) as total
 from Sales 
 group by trim(lower(product_name)), left(sale_date,7)
 order by product_name,sale_Date
+
+---02/15---
+select p.name,
+isnull(sum(i.rest),0) as rest,
+isnull(sum(i.paid),0) as paid,
+isnull(sum(i.canceled),0) as canceled,
+isnull(sum(i.refunded),0) as refunded
+from Product p left join
+Invoice i on 
+p.product_id = i.product_id
+group by i.product_id, p.name
+order by p.name
