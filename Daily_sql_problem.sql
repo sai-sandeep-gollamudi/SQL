@@ -215,3 +215,10 @@ Invoice i on
 p.product_id = i.product_id
 group by i.product_id, p.name
 order by p.name
+
+---02/16---
+select gender,
+day,
+sum(score_points) over(partition by gender order by day asc) as total
+from Scores
+order by gender,day
