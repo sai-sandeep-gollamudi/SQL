@@ -222,3 +222,11 @@ day,
 sum(score_points) over(partition by gender order by day asc) as total
 from Scores
 order by gender,day
+
+---02/17---
+select ad_id,
+isnull(round((sum(case when action = 'Clicked' then 1 else 0 end)*100.0)/
+nullif(sum(case when action = 'Clicked' or action = 'Viewed' then 1 else 0 end),0),2),0.00) as ctr
+from Ads
+group by ad_id
+order by 2 desc, 1 asc
