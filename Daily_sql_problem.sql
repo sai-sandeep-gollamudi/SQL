@@ -230,3 +230,4 @@ nullif(sum(case when action = 'Clicked' or action = 'Viewed' then 1 else 0 end),
 from Ads
 group by ad_id
 order by 2 desc, 1 asc
+
