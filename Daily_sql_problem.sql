@@ -231,3 +231,4 @@ from Ads
 group by ad_id
 order by 2 desc, 1 asc
 
+
