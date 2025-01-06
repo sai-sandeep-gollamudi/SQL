@@ -6,3 +6,6 @@ from (select distinct * from views where author_id != viewer_id)p
 group by viewer_id, view_date
 )t where t.ct>1 order by t.viewer_id
 
+select temp.problem_id from (select problem_id, ((likes*1.00/(likes+dislikes))*100) as per from Problems) temp
+where temp.per < 60.00
+order by 1
