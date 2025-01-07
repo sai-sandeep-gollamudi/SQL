@@ -9,3 +9,11 @@ group by viewer_id, view_date
 select temp.problem_id from (select problem_id, ((likes*1.00/(likes+dislikes))*100) as per from Problems) temp
 where temp.per < 60.00
 order by 1
+
+
+select
+case
+when (select count(*) from NewYork where score>=90) >  (select count(*) from California where score>=90) then 'New York University'
+when (select count(*) from NewYork where score>=90) <  (select count(*) from California where score>=90) then 'California University'
+else 'No Winner'
+end as 'winner'
