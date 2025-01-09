@@ -35,3 +35,17 @@ sum(case when month = 'Nov' then revenue else null end) as Nov_Revenue,
 sum(case when month = 'Dec' then revenue else null end) as Dec_Revenue
 from Department
 group by id
+
+
+------
+with temp_table as (
+    select *, max(salary) over(partition by company_id) as max_salary from Salaries
+)
+
+select company_id,employee_id,employee_name,
+case
+when max_salary < 1000 then round(salary)
+when max_salary >= 1000 and max_salary<10001 then round((salary) - (salary*(24/100)))
+else round((salary) - (salary*(49/100)))
+end as salary
+from temp_table
