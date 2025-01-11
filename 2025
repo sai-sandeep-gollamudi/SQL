@@ -60,3 +60,9 @@ group by activity
 select activity from temp 
 where count1 not in (select min(count1) from temp)
 and count1 not in (select max(count1) from temp)
+
+---------
+select count(*) as accounts_count from (
+    select account_id from Subscriptions where year(end_date)>2020
+    and account_id not in (select account_id from Streams where year(stream_date)=2021)
+)t
