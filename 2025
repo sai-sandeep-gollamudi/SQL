@@ -62,7 +62,18 @@ where count1 not in (select min(count1) from temp)
 and count1 not in (select max(count1) from temp)
 
 ---------
-select count(*) as accounts_count from (
+select count(*) as awith recursive temp as (
+    select 1 as ids
+    union all
+    select ids+1 from temp where ids < (select max(customer_id) from Customers)
+)
+
+select ids from temp
+where ids not in (select distinct customer_id from Customers)
+order by 1ccounts_count from (
     select account_id from Subscriptions where year(end_date)>2020
     and account_id not in (select account_id from Streams where year(stream_date)=2021)
 )t
+
+----------------
+
