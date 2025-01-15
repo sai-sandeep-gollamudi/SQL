@@ -89,4 +89,13 @@ from Transactions
 
 -----------------
 
+with temp as (
+select b.box_id,
+b.apple_count+ifnull(c.apple_count,0) as total_apple_count,
+b.orange_count+ifnull(c.orange_count,0) as total_orange_count
+from Boxes b left join Chests c
+on b.chest_id = c.chest_id
+)
 
+select sum(total_apple_count) as apple_count,
+sum(total_orange_count) as orange_count from temp
