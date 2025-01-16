@@ -99,3 +99,16 @@ on b.chest_id = c.chest_id
 
 select sum(total_apple_count) as apple_count,
 sum(total_orange_count) as orange_count from temp
+
+
+---------------
+
+# Write your MySQL query statement below
+with temp as(
+    select distinct salary, count(*) over(partition by salary) as c_val
+    from Employees
+)
+
+select e.*, dense_rank() over(order by e.salary asc) as team_id from Employees e inner join
+temp t on e.salary = t.salary
+where t.c_val >= 2
