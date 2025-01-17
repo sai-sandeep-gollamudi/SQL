@@ -112,3 +112,5 @@ with temp as(
 select e.*, dense_rank() over(order by e.salary asc) as team_id from Employees e inner join
 temp t on e.salary = t.salary
 where t.c_val >= 2
+
+
