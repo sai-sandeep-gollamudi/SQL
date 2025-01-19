@@ -114,3 +114,4 @@ temp t on e.salary = t.salary
 where t.c_val >= 2
 
 
+
