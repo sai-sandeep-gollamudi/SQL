@@ -113,5 +113,6 @@ select e.*, dense_rank() over(order by e.salary asc) as team_id from Employees e
 temp t on e.salary = t.salary
 where t.c_val >= 2
 
-
-
+-----------------
+select * from Olympic
+order by gold_medals desc, silver_medals desc, bronze_medals desc, country asc
