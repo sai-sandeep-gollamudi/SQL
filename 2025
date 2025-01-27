@@ -122,3 +122,12 @@ order by gold_medals desc, silver_medals desc, bronze_medals desc, country asc
 select count(distinct customer_id) as rich_count from Store
 where amount > 500
 ------------------------
+
+eg - 2025-01-26 to 'Sunday, January 26, 2025'
+
+select concat(dayname(day), ", ", Monthname(day), " ", day(day), ", ", year(day)) as day
+from Days
+
+select date_format(day, '%W, %M %e, %Y') as day from days
+
+------------------------
